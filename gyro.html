@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DeviceOrientationEvent</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+
+
+
+<style type="text/css">
+body {
+	margin:0;
+	padding:0;
+	background:#3d3d3d;
+}
+
+/* --------------------------------------------------- LANDSCAPE X KEYFRAME --- */
+
+#mr {
+	position: absolute;
+	width:300px;
+	height:250px;
+	top:50%;
+	left:50%;
+	margin:-125px 0 0 -150px;
+	overflow: hidden;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,.25);
+	opacity:0;
+	-webkit-transition: opacity .4s ease;
+			transition: opacity .4s ease;
+}
+#mr.active {
+	opacity:1;
+}
+
+#mrLandscape {
+	background:url(landscapeX.jpg) no-repeat;
+	width:1500px;
+	height:250px;
+	top:0;
+	left:50%;
+	margin-left:-750px;
+	-webkit-transition:-webkit-transform .6s ease;
+			transition:transform .6s ease;
+}
+#mrSpot {
+	background:red;
+	width:100px;
+	height:100px;
+	border-radius:100%;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-50px 0 0 -50px;
+	opacity:0;
+	-webkit-transition:opacity .4s ease;
+			transition:opacity .4s ease;
+}
+#mrSpot.visible {
+	opacity:1;
+}
+
+/* --------------------------------------------------- LANDSCAPE X LIVE --- */
+
+#live {
+	position: absolute;
+	width:300px;
+	height:250px;
+	top:50%;
+	left:50%;
+	margin:-125px 0 0 -150px;
+	overflow: hidden;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,.25);
+	opacity:0;
+	-webkit-transition: opacity .4s ease;
+			transition: opacity .4s ease;
+}
+#live.active {
+	opacity:1;
+}
+
+#liveLandscape {
+	background:url(landscapeLive.jpg) no-repeat;
+	width:1440px;
+	height:250px;
+	position: relative;
+	top:0;
+	left:-570px;
+}
+#liveSpot {
+	background:blue;
+	width:100px;
+	height:100px;
+	border-radius:100%;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-50px 0 0 -150px;
+	opacity:0;
+	-webkit-transform:translateY(40px);
+			transform:translateY(40px);
+	-webkit-transition:-webkit-transform .4s ease-out, opacity .4s linear;
+			transition:transform .4s ease-out, opacity .4s linear;
+}
+#liveSpot.visible {
+	opacity: 1;
+	-webkit-transform:translateY(0);
+			transform:translateY(0);
+}
+
+/* --------------------------------------------------- LANDSCAPE X AND Y --- */
+
+#d {
+	position:absolute;
+	width:100%;
+	height:100%;
+	overflow: hidden;
+	opacity:0;
+	-webkit-transition: opacity .4s ease;
+			transition: opacity .4s ease;
+}
+#d.active {
+	opacity:1;
+}
+#landscape {
+	background:url(background.jpg) no-repeat;
+	width:1440px;
+	height:1620px;
+	position: absolute;
+}
+#dSpot {
+	background:url(spot.png) no-repeat 0 0;
+	width:288px;
+	height: 256px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	margin:-128px 0 0 -144px;
+	opacity:0;
+	-webkit-transform:scale(0);
+			transform:scale(0);
+	-webkit-transition:-webkit-transform .4s ease-out, opacity .4s linear;
+			transition:transform .4s ease-out, opacity .4s linear;;
+}
+
+#dSpot.visible {
+	opacity:1;
+	-webkit-transform:scale(1);
+			transform:scale(1);
+}
+
+
+
+
+
+
+
+/* --------------------------------------------------- GENRAL --- */
+
+.showcaseMetrics {
+	font-size:10px;
+	color:#fff;
+	background:rgba(0,0,0,.8);
+	position: absolute;
+	padding:10px;
+	top:0;
+}
+
+#btnInit {
+	width:80%;
+	height: 40px;
+	position: absolute;
+	left:50%;
+	top:0;
+	margin-left: -40%;
+	border-radius: 10px;
+	border:1px solid #fff;
+	background:transparent;
+	text-align: center;
+	-webkit-transition:opacity .4s ease-in;
+			transition:opacity .4s ease-in;
+}
+
+#btnInit span {
+	display: block;
+	margin:10px auto;
+	color:#fff;
+}
+.active #btnInit {
+	opacity:0;
+}
+
+#metricsWrapper {
+	width:100%;
+	height:360px;
+	position:fixed;
+	bottom: -300px;
+	-webkit-transition:bottom .4s ease;
+			transition:bottom .4s ease;
+}
+#metricsWrapper.active {
+	bottom:0;
+}
+#metrics {
+	position: absolute;
+	width:100%;
+	height:100%;
+	top:60px;
+	padding:20px;
+	display: block;
+	background:rgba(255,255,255,.8);
+}
+#metrics ul {
+	list-style-type: none;
+	padding:0;
+}
+
+#menuWrapper {
+	background:rgba(0,0,0,.8);
+	position: absolute;
+	width:100%;
+	height:100%;
+	opacity:0;
+	top:0;
+	-webkit-transition:opacity .5s ease-out;
+			transition:opacity .5s ease-out;
+}
+#menuWrapper.active {
+	opacity:1;
+}
+#menuWrapper nav ul{
+	list-style-type: none;
+	color:#f4f4f4;
+	width:80%;
+	margin:100px auto;
+	padding:0;
+}
+#menuWrapper nav ul li {
+	border-bottom:1px solid #3b3b3b;
+	padding:10px 0;
+	margin:0 0 20px 0;
+}
+#btnMenu {
+	position: fixed;
+	width:40px;
+	height:40px;
+	top:20px;
+	right:20px;
+}
+#btnMenuElements {
+	position: relative;
+	top:10px;
+}
+#btnMenu span {
+	display: block;
+	background:#fff;
+	width:24px;
+	height:1px;
+	box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
+	position: relative;
+	margin:4px auto;
+	-webkit-transform-origin:center center;
+			transform-origin:center center;
+}
+
+#btnMenu span:nth-child(1), #btnMenu span:nth-child(3) {
+	-webkit-transform:translateY(0);
+			transform:translateY(0);
+	-webkit-transition:-webkit-transform .3s ease-out .3s, opacity .3s linear .3s;
+			transition:transform .3s ease-out .3s, opacity .3s linear .3s;
+}
+#btnMenu span:nth-child(2) {
+	-webkit-transform:rotate(0);
+			transform:rotate(0);
+	-webkit-transition:-webkit-transform .3s ease-out;
+			transition:transform .3s ease-out;
+}
+
+#btnMenu span:nth-child(4) {
+	top:-10px;
+	opacity:0;
+	-webkit-transition:-webkit-transform .3s ease-out, opacity .3s linear .3s;
+			transition:transform .3s ease-out, opacity .3s linear .3s;
+}
+
+#btnMenu.active span:nth-child(1) {
+	opacity:0;
+	-webkit-transform: translateY(4px);
+			transform: translateY(4px);
+	-webkit-transition: -webkit-transform .3s ease, opacity .3s linear;
+			transition: transform .3s ease, opacity .3s linear;
+}
+#btnMenu.active span:nth-child(2) {
+	transform: rotate(45deg);
+	transition: transform .3s ease .3s;
+}
+#btnMenu.active span:nth-child(3) {
+	opacity:0;
+	-webkit-transform: translateY(-4px);
+			transform: translateY(-4px);
+	-webkit-transition: -webkit-transform .3s ease, opacity .3s linear;
+			transition: transform .3s ease, opacity .3s linear;
+}
+#btnMenu.active span:nth-child(4) {
+	opacity:1;
+	-webkit-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+	-webkit-transition: -webkit-transform .3s ease .3s,opacity .3s linear;
+			transition: transform .3s ease .3s,opacity .3s linear;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div id="mr" class="showcases">
+	<div id="mrLandscape"></div>
+	<div id="mrSpot"></div>
+</div>
+
+<div id="live" class="showcases">
+	<div id="liveLandscape">
+		<div id="liveSpot"></div>
+	</div>
+	<span id="liveGamma" class="showcaseMetrics"></span>
+</div>
+
+<div id="d" class="active showcases">
+	<div id="landscape"></div>
+	<div id="dSpot"></div>
+	<span id="twoD" class="showcaseMetrics"></span>
+</div>
+
+<div id="menuWrapper">
+	<nav>
+		<ul>
+			<li id="gyroOne">Landscape X Keyframes</li>
+			<li id="gyroTwo">Landscape X Live</li>
+			<li id="gyroThree">Landscape 2D</li>
+			<li>with 3d transform</li>
+		</ul>
+	</nav>
+</div>
+<div id="btnMenu">
+	<div id="btnMenuElements">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</div>
+
+<div id="metricsWrapper">
+	<div id="btnInit">
+		<span>SHOW METRICS</span>
+	</div>
+
+	<div id="metrics">
+		<div id="accelero">
+			<h4>Accelerometer</h4>
+			<ul>
+				<li id="x"></li>
+				<li id="y"></li>
+				<li id="z"></li>
+		</div>
+		<div id="magneto">
+			<h4>Magnetometer</h4>
+			<ul>
+				<li id="alpha"></li>
+				<li id="beta"></li>
+				<li id="gamma"></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- source: https://www.w3.org/TR/orientation-event/ -->
+<script type="text/javascript">
+
+// --------------------------------------------------- GENRAL
+
+var showcases = document.getElementsByClassName('showcases');
+
+document.getElementById('metricsWrapper').onclick = function() {
+    this.classList.toggle('active');
+}
+document.getElementById('btnMenu').onclick = function() {
+	this.classList.toggle('active');
+    document.getElementById('menuWrapper').classList.toggle('active');
+}
+
+function motion(event) {
+	document.getElementById('x').innerHTML = "x " + event.accelerationIncludingGravity.x;
+	document.getElementById('y').innerHTML = "y " + event.accelerationIncludingGravity.y;
+	document.getElementById('z').innerHTML = "z " + event.accelerationIncludingGravity.z;
+}
+
+function orientation(event) {
+	document.getElementById('alpha').innerHTML = "alpha " + event.alpha;
+	document.getElementById('beta').innerHTML = "beta " + event.beta;
+	document.getElementById('gamma').innerHTML = "gamma " + event.gamma;
+}
+
+window.addEventListener("devicemotion", motion, false);
+window.addEventListener("deviceorientation", orientation, false);
+
+
+
+// --------------------------------------------------- LANDSCAPE X KEYFRAME
+
+function landscapeX(event) {
+	//document.getElementById('mrLandscape').style.transform = "translateX(" + event.gamma + "px)";
+	switch (true) {
+		case (event.gamma < -45 ):
+			document.getElementById('mrLandscape').style.transform = "translateX(750px)";
+			document.getElementById('mrSpot').style.opacity = "1";
+			break;
+		case (event.gamma > -45 && event.gamma < -5):
+			document.getElementById('mrLandscape').style.transform = "translateX(375px)";
+			document.getElementById('mrSpot').style.opacity = "0";
+			break;
+		case (event.gamma < 45 && event.gamma > 5):
+			document.getElementById('mrLandscape').style.transform = "translateX(-225px)";
+			document.getElementById('mrSpot').style.opacity = "0";
+			break;
+		case (event.gamma > 45):
+			document.getElementById('mrLandscape').style.transform = "translateX(-450px)";
+			document.getElementById('mrSpot').style.opacity = "0";
+			break;
+	}
+}
+window.addEventListener("deviceorientation", landscapeX, false);
+
+document.getElementById('gyroOne').onclick = function() {
+	document.getElementById('mr').classList.add('active');
+	document.getElementById('live').classList.remove('active');
+	document.getElementById('d').classList.remove('active');
+    document.getElementById('menuWrapper').classList.toggle('active');
+    document.getElementById('btnMenu').classList.toggle('active');
+}
+
+// --------------------------------------------------- LANDSCAPE X LIVE
+
+function landscapeXlive(event) {
+	var live = event.gamma * 6;
+	document.getElementById('liveGamma').innerHTML = live;
+	document.getElementById('liveLandscape').style.transform = "translateX(" + live + "px)";
+
+	switch (true) {
+		case (live > 100):
+			document.getElementById('liveSpot').className = "visible";
+			break;
+		case (live < 100):
+			document.getElementById('liveSpot').className = "";
+			break;
+	}
+}
+
+window.addEventListener("deviceorientation", landscapeXlive, false);
+
+document.getElementById('gyroTwo').onclick = function() {
+	document.getElementById('mr').classList.remove('active');
+	document.getElementById('d').classList.remove('active');
+	document.getElementById('live').classList.add('active');
+    document.getElementById('menuWrapper').classList.toggle('active');
+    document.getElementById('btnMenu').classList.toggle('active');
+}
+
+// --------------------------------------------------- LANDSCAPE 2D
+
+var landscapeLeft = -720 + window.innerWidth / 2;
+var landscapeTop = -810 + window.innerHeight / 2;
+document.getElementById('landscape').style.left = landscapeLeft + "px";
+document.getElementById('landscape').style.top = landscapeTop + "px";
+
+function landscape2d(event) {
+	var beta = event.beta * 4.5;
+	var gamma = event.gamma * 8;
+	document.getElementById('landscape').style.transform = "translate(" + gamma + "px, " + beta + "px)";
+	document.getElementById('twoD').innerHTML = gamma + "<br>" + beta;
+
+	if (gamma > 200 && beta > 60) {
+		document.getElementById('dSpot').className = "visible";
+	}	else {
+			document.getElementById('dSpot').className = "";
+	}
+			
+
+}
+
+window.addEventListener("deviceorientation", landscape2d, false);
+
+document.getElementById('gyroThree').onclick = function() {
+	document.getElementById('mr').classList.remove('active');
+	document.getElementById('live').classList.remove('active');
+	document.getElementById('d').classList.add('active');
+    document.getElementById('menuWrapper').classList.toggle('active');
+    document.getElementById('btnMenu').classList.toggle('active');
+}
+
+</script>
+</body>
+</html>
